@@ -9,10 +9,25 @@ services:
       - "3306:3306"
     volumes:
       - mysql-data:/var/lib/mysql
+    restart: always
+    networks:
+      - db-network
+  
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    environment:
+      PMA_HOST: mysql_db
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: example_password
+    ports:
+      - "8080:80"
+    depends_on:
+      - mysql
     networks:
       - db-network
 
 volumes:
   mysql-data:
-networks: 
+networks:   
   db-network:
