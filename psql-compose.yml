@@ -4,11 +4,13 @@ services:
     restart: always
     container_name: postgres_db 
     environment:
-      POSTGRES_PASSWORD: example_password 
-      POSTGRES_DB: example_db 
-      POSTGRES_USER: example_user
+      POSTGRES_PASSWORD: labpass
+      POSTGRES_DB: movie_theater_lab 
+      POSTGRES_USER: labuser
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./pg_output:/tmp
+      - ./init/pg-init.sql:/docker-entrypoint-initdb.d/pg-init.sql:ro
     networks:
       - db-network
     ports:
